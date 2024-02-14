@@ -6,14 +6,14 @@ export const Header = () => {
 
         width: '100%',
         padding: '2%',
-        backgroundColor: "blue",
+        backgroundColor: "Orange",
         color: 'white',
         textAlign: 'center'
     }
 
     return(
         <div style={headerStyle}>
-            <h1>MOVIE EDIT</h1>
+            <h1>NUNTHI PLUS+</h1>
         </div>
     )
 }
