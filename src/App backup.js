@@ -4,21 +4,14 @@ import './App.css';
 import { Header } from './components/Header'
 import { Users } from './components/Users'
 import { DisplayBoard } from './components/DisplayBoard'
-import CreateUser from './components/CreateMovie'
+import CreateUser from './components/CreateUser'
 import { getAllUsers, createUser } from './services/UserService'
-//----------------
-import { Movies } from './components/Movies'
-import { getAllMovies, createMovie } from './services/MovieService'
 
 function App() {
 
   const [user, setUser] = useState({})
   const [users, setUsers] = useState([])
   const [numberOfUsers, setNumberOfUsers] = useState(0)
-
-  //--------------
-
-  const [movies, setMovies] = useState([])
 
 
   const userCreate = (e) => {
@@ -40,21 +33,12 @@ function App() {
   }
 
   useEffect(() => {
-
     getAllUsers()
       .then(users => {
-         console.log(users)
+        console.log(users)
         setUsers(users);
-         setNumberOfUsers(users.length)
+        setNumberOfUsers(users.length)
       });
-
-      getAllMovies()
-      .then(movies => {
-        console.log(movies)
-        setMovies(movies);
-        //setNumberOfUsers(users.length)
-      });
-
   }, [])
 
   const onChangeForm = (e) => {
@@ -72,7 +56,7 @@ function App() {
     return (
         <div className="App">
           <Header></Header>
-           <div className="container mrgnbtm">
+          <div className="container mrgnbtm">
             <div className="row">
               <div className="col-md-8">
                   <CreateUser 
@@ -93,9 +77,6 @@ function App() {
           </div>
           <div className="row mrgnbtm">
             <Users users={users}></Users>
-          </div> 
-          <div className="row mrgnbtm">
-            <Movies movies={movies}></Movies>
           </div>
         </div>
     );

@@ -8,76 +8,53 @@ import { Movies } from './components/Movies'
 import CreateMovie from './components/CreateMovie'
 import { getAllMovies, createMovie } from './services/MovieService'
 
+//เพิ่มใหม่
+import SearchPage from './components/SearchPage';
+
+
 function App() {
 
-
+  const [user, setUser] = useState({})
+  const [users, setUsers] = useState([])
+  const [numberOfUsers, setNumberOfUsers] = useState(0)
 
   //--------------
   const [movie, setMovie] = useState({})
   const [movies, setMovies] = useState([])
   const [numberOfMovies, setNumberOfMovies] = useState(0)
+  const [searchResults, setSearchResults] = useState([]);
 
 
+const movieCreate = (e) => {
 
-  const movieCreate = (e) => {
-
-    createMovie(movie)
-      .then(response => {
-        console.log(response);
-        setNumberOfMovies(numberOfMovies+1)
-    });
+  createMovie(movie)
+    .then(response => {
+      console.log(response);
+      setNumberOfMovies(numberOfMovies+1)
+  });
 }
 
 
-  /*
-  const fetchAllUsers = () => {
-    getAllUsers()
-      .then(users => {
-        console.log(users)
-        setUsers(users);
-        setNumberOfUsers(users.length)
-      });
-  }
-*/
-  const fetchAllMovies = () => {
+const fetchAllMovies = () => {
+  getAllMovies()
+    .then(movies => {
+      console.log(movies)
+      setMovies(movies);
+      setNumberOfMovies(movies.length)
+      setSearchResults([]);
+    });
+}
+
+useEffect(() => {
+
     getAllMovies()
-      .then(movies => {
-        console.log(movies)
-        setMovies(movies);
-        setNumberOfMovies(movies.length)
-      });
-  }
+    .then(movies => {
+      console.log(movies)
+      setMovies(movies);
+      setNumberOfMovies(movies.length)
+    });
 
-  useEffect(() => {
-/*
-      getAllUsers()
-      .then(users => {
-         console.log(users)
-        setUsers(users);
-         setNumberOfUsers(users.length)
-      });
-*/
-      getAllMovies()
-      .then(movies => {
-        console.log(movies)
-        setMovies(movies);
-        setNumberOfMovies(movies.length)
-      });
-
-  }, [])
-
-  /*
-  const onChangeForm = (e) => {
-      if (e.target.name === 'firstname') {
-          user.firstName = e.target.value;
-      } else if (e.target.name === 'lastname') {
-          user.lastName = e.target.value;
-      } else if (e.target.name === 'email') {
-          user.email = e.target.value;
-      }
-      setUser(user)
-  }
-  */
+}, [])
 
   const onChangeForm = (e) => {
     if (e.target.name === 'title') {
@@ -92,44 +69,42 @@ function App() {
     setMovie(movie)
 }
 
-    
-    return (
-        <div className="App">
-          <Header></Header>
-           <div className="container mrgnbtm">
-            <div className="row">
-              {/* <div className="col-md-8">
-                  <CreateUser 
-                    user={user}
-                    onChangeForm={onChangeForm}
-                    createUser={userCreate}
-                    >
-                  </CreateUser>
-              </div> */}
-             <div className="col-md-8">
-                  <CreateMovie 
-                    movie={movie}
-                    onChangeForm={onChangeForm}
-                    createMovie={movieCreate}
-                    >
-                  </CreateMovie>
-              </div>
-              <div className="col-md-4">
+   return (
+    <div className="App" style={{backgroundImage: 'url("/images/car.jpg")', backgroundSize: 'cover', minHeight: '100vh'}}>
+      <Header></Header>
+      <div className="container mrgnbtm">
+        <div className="row">
+          <div className="col-md-8">
+            <CreateMovie
+              Movies={Movies}
+              onChangeForm={onChangeForm}
+              createMovie={movieCreate}
+            >
+            </CreateMovie>
+            <div className="col-md-8">
+            <SearchPage
+              setMovies={setMovies}
+              setNumberOfMovies={setNumberOfMovies}
+              setSearchResults={setSearchResults}
+            />
+            </div>
+          </div>
+          <div className="col-md-4">
                   <DisplayBoard
                     numberOfMovies={numberOfMovies}
                     getAllMovies={fetchAllMovies}
                   >
                   </DisplayBoard> 
-              </div>
-            </div>          {/* <div className="row mrgnbtm">
-            <Users users={users}></Users>
-          </div>  */}
-          <div className="row mrgnbtm">
-            <Movies movies={movies}></Movies>
           </div>
         </div>
-        </div>
-    );
+      </div>
+      <div className="row mrgnbtm">
+        <Movies movies={searchResults.length > 0 ? searchResults : movies}></Movies>
+      </div>   
+    </div>
+  );
 }
 
 export default App;
+
+ 

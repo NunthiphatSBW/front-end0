@@ -22,23 +22,3 @@
 .mrgnbtm {
   margin-top: 20px;
 }
-
-/*  Search bar  */
-.Seachbar {
-  display: flex;
-  justify-content: center;
-  align-items: left;
-}
-
-.Seach_input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 300px;
-  margin-right: 10px; 
-}
-
-.Seach_input::placeholder {
-  color: #999;
-}

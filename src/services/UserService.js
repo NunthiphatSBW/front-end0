@@ -18,4 +18,3 @@ export async function createUser(data) {
       })
     return await response.json();
 }
-
